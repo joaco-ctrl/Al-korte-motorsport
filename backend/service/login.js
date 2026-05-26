@@ -1,12 +1,12 @@
 const conexion = require("../database");
 function login(data, callback) {
-    const { email, contraseña } = data;
-    if (!email || !contraseña) {
+    const { email, password } = data;
+    if (!email || !password) {
         return callback(new Error("Datos invalidos"));
     }
     else {
         conexion.query(
-            "SELECT * FROM cuenta WHERE email = ?",
+            "SELECT * FROM usuarios WHERE email = ?",
             [email],
             callback
         );
@@ -14,14 +14,14 @@ function login(data, callback) {
 }
 
 function registro(data, callback) {
-    const { email, contraseña} = data;
-    if (!email || !contraseña) {
+    const { email, password } = data;
+    if (!email || !password) {
         return callback(new Error("Datos invalidos"));
     }
     else {
         conexion.query(
-            "INSERT INTO cuenta (email, contraseña) VALUES (?, ?)",
-            [email, contraseña],
+            "INSERT INTO usuarios (email, password) VALUES (?, ?)",
+            [email, password],
             callback
         );
     }

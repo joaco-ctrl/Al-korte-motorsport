@@ -6,8 +6,8 @@ const auth = require("../auth/auth");
 
 //LOGIN
 function login(req, res) {
-    const { email, contraseña } = req.body;
-    loginservice.login({ email, contraseña }, (err, results) => {
+    const { email, password } = req.body;
+    loginservice.login({ email, password }, (err, results) => {
         if (err) {
             return res.status(500).json({ error: "Error en la base de datos" });
         }
@@ -15,12 +15,12 @@ function login(req, res) {
             return res.status(404).json({ error: "Email no encontrado" });
         }
 
-        const hashAlmacenado = results[0].contraseña;
+        const hashAlmacenado = results[0].password;
         if (!hashAlmacenado) {
             return res.status(500).json({ error: "Usuario sin contraseña registrada" });
         }
 
-        bcrypt.compare(contraseña, hashAlmacenado, (err, resultado) => {
+        bcrypt.compare(password, hashAlmacenado, (err, resultado) => {
             if (err) {
                 return res.status(500).json({ error: "Error al verificar contraseña" });
             }
@@ -35,12 +35,12 @@ function login(req, res) {
 }
 
 function registro(req, res) {
-    const { email, contraseña } = req.body;
-    bcrypt.hash(contraseña, 10, (err, hash) => {
+    const { email, password } = req.body;
+    bcrypt.hash(password, 10, (err, hash) => {
         if (err) {
             return res.status(500).json({ error: "Error al encriptar contraseña" });
         }
-        loginservice.registro({ email, contraseña: hash }, (err, results) => {
+        loginservice.registro({ email, password: hash }, (err, results) => {
             if (err) {
                 return res.status(400).json({ error: err.message });
             }

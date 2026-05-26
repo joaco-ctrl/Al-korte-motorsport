@@ -4,7 +4,7 @@ import api from '../assets/api/api';
 import { useNavigate, Link } from 'react-router-dom';
 
 const Login = () => {
-  const [formData, setFormData] = useState({ email: '', contraseña: '' });
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -43,9 +43,9 @@ const Login = () => {
         />
         <input
           type="password"
-          name="contraseña"
+          name="password"
           placeholder="Contraseña"
-          value={formData.contraseña}
+          value={formData.password}
           onChange={handleChange}
           required
         />

@@ -4,7 +4,7 @@ import { useNavigate, Link } from 'react-router-dom';
 
 const Registro = () => {
     const [email, setEmail] = useState('');
-    const [contraseña, setContraseña] = useState('');
+    const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
@@ -14,7 +14,7 @@ const Registro = () => {
         setLoading(true);
         setError('');
         try {
-            await api.post('/registro', { email, contraseña });
+            await api.post('/registro', { email, password });
             navigate('/');
         } catch (error) {
             setError(error.message || 'Error en el registro');
@@ -38,8 +38,8 @@ const Registro = () => {
                     <input
                     placeholder='contraseña'
                         type="password"
-                        value={contraseña}
-                        onChange={(e) => setContraseña(e.target.value)}
+                        value={password}
+                        onChange={(e) => setPassword  (e.target.value)}
                         required
                     />
                 <button type="submit" disabled={loading}>{loading ? 'Registrando...' : 'Registrarse'}</button>
